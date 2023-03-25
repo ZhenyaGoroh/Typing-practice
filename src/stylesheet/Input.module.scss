@@ -22,4 +22,19 @@
 
         font-size: $text-fs;
     }
+    &__link{
+        color: $red-color;
+        text-decoration: none;
+        border: 1px solid $red-color;
+        border-radius: 4px;
+        width: fit-content;
+        padding: 4px;
+        margin-inline: auto;
+        transition: all $transition;
+        &:hover{
+            color: $green-color;
+            border-color: $green-color;
+            scale: 1.2;
+        }
+    }
 }

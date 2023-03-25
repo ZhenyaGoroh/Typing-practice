@@ -1,5 +1,6 @@
 import React from "react"
 import ReactTextareaAutosize from "react-textarea-autosize"
+import { Link } from "react-router-dom"
 import s from "../stylesheet/Input.module.scss"
 import { useState } from "../store/store"
 
@@ -17,13 +18,11 @@ function Input() {
           placeholder="Text..."
           onChange={(el) => setText(el.target.value)}
         />
-        <button
-          type="button"
-          onClick={() => console.log(text)}
-          className={s.input__btn}
-        >
-          Start typing
-        </button>
+        {text.length > 0 && (
+          <Link to="/practice" className={s.input__link}>
+            Start typing
+          </Link>
+        )}
       </div>
     </div>
   )

@@ -1,6 +1,11 @@
 import { create } from "zustand"
 
-export const useState = create((set) => ({
+interface UseState {
+  text: string
+  setText: (newText: string) => void
+}
+
+export const useState = create<UseState>((set) => ({
   text: "",
   setText: (newText: string) => set(() => ({ text: newText })),
 }))
