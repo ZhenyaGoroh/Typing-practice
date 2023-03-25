@@ -11,7 +11,7 @@
         font-size: $title-fs;
         &_green {
             position: relative;
-            color: $correct-color;
+            color: $green-color;
         }
         &_separator {
             position: absolute;
@@ -20,7 +20,7 @@
             display: block;
             width: 3px;
             height: 100%;
-            background-color: $correct-color;
+            background-color: $green-color;
         }
     }
 }

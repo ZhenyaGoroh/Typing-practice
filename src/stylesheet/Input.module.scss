@@ -1,0 +1,25 @@
+@import "./general.scss";
+
+.input {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 1000px;
+    width: 100%;
+    gap: 1rem;
+    &__label {
+        color: $green-color;
+        font-size: $subtitle-fs;
+    }
+    &__textarea {
+        resize: none;
+        outline: none;
+        background-color: inherit;
+        color: $text-color;
+        overflow: hidden;
+        border: none;
+
+        font-size: $text-fs;
+    }
+}

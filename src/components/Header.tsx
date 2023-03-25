@@ -17,7 +17,7 @@ function Header() {
   useEffect(() => {
     const cursorBlinking = setInterval(() => {
       toggleSeparatorDisplay()
-    }, 500)
+    }, 1000)
   })
 
   return (
