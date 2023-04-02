@@ -4,9 +4,9 @@ import { useStore } from "../store/store"
 
 function Practice() {
   const text = useStore((state) => state.text)
-  const line = useStore((state) => state.line)
   const setText = useStore((state) => state.setText)
 
+  const [line, setLine] = useState<number>(0)
   useEffect(() => {
     window.addEventListener("keydown", (event) => {
       if (event.key === text[0]) {

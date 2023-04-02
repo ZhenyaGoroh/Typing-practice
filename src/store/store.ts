@@ -2,7 +2,6 @@ import { create } from "zustand"
 
 interface State {
   text: string
-  line: number
 }
 
 interface Action {
@@ -11,6 +10,5 @@ interface Action {
 
 export const useStore = create<State & Action>((set) => ({
   text: "",
-  line: 0,
   setText: (newText: string) => set(() => ({ text: newText })),
 }))
