@@ -10,5 +10,6 @@ interface Action {
 
 export const useStore = create<State & Action>((set) => ({
   text: "",
+  char: 0,
   setText: (newText: string) => set(() => ({ text: newText })),
 }))
