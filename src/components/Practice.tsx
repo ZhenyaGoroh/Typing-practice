@@ -1,4 +1,4 @@
-import React, { ReactNode, createRef, useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 import { BiSpaceBar } from "react-icons/bi"
 import s from "../stylesheet/Practice.module.scss"
@@ -9,13 +9,25 @@ function Practice() {
 
   const textNode = useRef<HTMLDivElement>(null)
 
-  let char: number = 0
-  let line: number = 0
+  let char = 0
+  // let line = 0
+  const [line, setLine] = useState<number>(0)
+
+  function increaceChar(): void {
+    char += 1
+    if (char === 10) {
+      setLine((prevLine) => {
+        char = 10
+        return prevLine + 1
+      })
+    }
+  }
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === text[char]) {
-        console.log("h")
+      if (event.key === text.slice(10 * line, 10 * line + 10)[char]) {
+        textNode.current?.children[char].classList.add(`${s.correct}`)
+        increaceChar()
       }
     }
 
@@ -33,9 +45,13 @@ function Practice() {
           {text
             .slice(10 * line, 10 * line + 10)
             .split("")
-            .map((char, index) => (
-              <span key={index}>{char}</span>
-            ))}
+            .map((ch) => {
+              return ch === " " ? (
+                <BiSpaceBar className={s.spaceSpan} key={uuidv4()} />
+              ) : (
+                <span key={uuidv4()}>{ch}</span>
+              )
+            })}
         </div>
       </div>
     </div>
