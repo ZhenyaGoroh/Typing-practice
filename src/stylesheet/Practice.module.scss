@@ -11,9 +11,6 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        max-width: 1200px;
-        width: 100%;
-        flex-wrap: wrap;
     }
 }
 
@@ -22,11 +19,14 @@
 }
 
 .spaceSpan {
-    margin-top: 0.5rem;
-    // font-size: 2.5rem;
+    margin-top: 0.7rem;
+    display: flex;
+    width: 24px !important; 
+    height: 24px !important;
+    & path{
+        width: 100% !important;
+    }
 }
-
-
 
 .cursor {
     display: block;

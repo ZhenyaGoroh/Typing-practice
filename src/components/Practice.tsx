@@ -17,9 +17,33 @@ function Practice() {
   // let line = 0
   const [line, setLine] = useState<number>(0)
 
+  function getText(): string[] {
+    if (text.length !== 0) {
+      const words = text.split(" ")
+      const result = []
+      let currentLine = ""
+
+      for (let i = 0; i < words.length; i += 1) {
+        if (currentLine.length + words[i].length <= 70) {
+          currentLine += currentLine === "" ? words[i] : ` ${words[i]}`
+        } else {
+          result.push(currentLine)
+          currentLine = words[i]
+        }
+      }
+
+      if (currentLine !== "") {
+        result.push(currentLine)
+      }
+
+      return result
+    }
+    return []
+  }
+
   function increaceChar(): void {
     char += 1
-    if (char === text.split(". ")[line].length) {
+    if (char === getText()[line].length) {
       setLine((prevLine) => {
         char = 10
         return prevLine + 1
@@ -33,10 +57,18 @@ function Practice() {
       textNode.current.children[char + 1] &&
       cursorRef.current
     ) {
-      if (char + 1 === 2) {
+      if (getText()[line].split("")[char + 1] === " ") {
         cursorRef.current.style.left = `${
           parseFloat(cursorRef.current?.style.left) +
-          textNode.current.children[char + 1].getBoundingClientRect().width
+          textNode.current.children[char + 1].getBoundingClientRect().width +
+          (24 -
+            textNode.current.children[char + 1].getBoundingClientRect().width)
+        }px`
+      } else if (getText()[line].split("")[char] === " ") {
+        cursorRef.current.style.left = `${
+          parseFloat(cursorRef.current?.style.left) +
+          textNode.current.children[char + 1].getBoundingClientRect().width -
+          (24 - textNode.current.children[char].getBoundingClientRect().width)
         }px`
       } else {
         cursorRef.current.style.left = `${
@@ -44,10 +76,16 @@ function Practice() {
           textNode.current.children[char + 1].getBoundingClientRect().width
         }px`
       }
+
+      console.log(
+        textNode.current.children[char + 1].getBoundingClientRect().width
+        // textNode.current.children[char + 1].getBoundingClientRect().width
+      )
     }
   }
 
   useEffect(() => {
+    getText()
     if (text.length < 1) {
       navigate("/")
     }
@@ -62,11 +100,14 @@ function Practice() {
       }px`
     }
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === text.split(". ")[line][char]) {
+      if (event.key === getText()[line][char]) {
         textNode.current?.children[char + 1].classList.add(`${s.correct}`)
         if (char + 1 !== text.length) {
           pushCursor()
         }
+        // TODO: last character  else {
+        //   alert("f")
+        // }
         increaceChar()
       }
     }
@@ -83,16 +124,20 @@ function Practice() {
       <div className={s.practice}>
         <div ref={textNode} className={s.practice__text}>
           <span ref={cursorRef} className={s.cursor} />
-          {text
-            .split(". ")
-            [line].split("")
-            .map((ch) => {
-              return ch === " " ? (
-                <BiSpaceBar className={s.spaceSpan} key={uuidv4()} />
-              ) : (
-                <span key={uuidv4()}>{ch}</span>
-              )
-            })}
+          {text.length > 0 &&
+            getText()
+              [line].split("")
+              .map((ch) => {
+                return ch === " " ? (
+                  <BiSpaceBar
+                    size="1.5rem"
+                    key={uuidv4()}
+                    className={s.spaceSpan}
+                  />
+                ) : (
+                  <span key={uuidv4()}>{ch}</span>
+                )
+              })}
         </div>
       </div>
     </div>
