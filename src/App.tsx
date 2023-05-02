@@ -1,8 +1,8 @@
 import React from "react"
 import "./App.scss"
 import { Routes, Route } from "react-router-dom"
-import Input from "./components/Input"
-import Practice from "./components/Practice"
+import Input from "./pages/Input"
+import Practice from "./pages/Practice"
 
 function App() {
   return (

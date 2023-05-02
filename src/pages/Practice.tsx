@@ -9,12 +9,20 @@ function Practice() {
   const navigate = useNavigate()
 
   const text = useStore((state) => state.text)
+  let char = 0
 
   const textNode = useRef<HTMLDivElement>(null)
   const cursorRef = useRef<HTMLSpanElement>(null)
 
-  let char = 0
-  // let line = 0
+  let seconds = 0
+  function increaseSeconds() {
+    seconds += 1
+  }
+
+  let isActive = false
+  function toggleIsActive() {
+    isActive = true
+  }
   const [line, setLine] = useState<number>(0)
 
   function getText(): string[] {
@@ -76,15 +84,11 @@ function Practice() {
           textNode.current.children[char + 1].getBoundingClientRect().width
         }px`
       }
-
-      console.log(
-        textNode.current.children[char + 1].getBoundingClientRect().width
-        // textNode.current.children[char + 1].getBoundingClientRect().width
-      )
     }
   }
 
   useEffect(() => {
+    let interval: number
     getText()
     if (text.length < 1) {
       navigate("/")
@@ -95,19 +99,26 @@ function Practice() {
       cursorRef.current
     ) {
       cursorRef.current.style.left = `${
-        // parseFloat(cursorRef.current?.style.left) +
         textNode.current.children[char + 1].getBoundingClientRect().width
       }px`
     }
     function handleKeyDown(event: KeyboardEvent) {
+      if (!isActive) {
+        interval = setInterval(() => {
+          increaseSeconds()
+          console.log(seconds)
+        }, 1000)
+        toggleIsActive()
+      }
       if (event.key === getText()[line][char]) {
         textNode.current?.children[char + 1].classList.add(`${s.correct}`)
         if (char + 1 !== text.length) {
           pushCursor()
         }
-        // TODO: last character  else {
-        //   alert("f")
-        // }
+        // TODO: last character
+        else {
+          clearInterval(interval)
+        }
         increaceChar()
       }
     }
