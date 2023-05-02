@@ -8,6 +8,12 @@
     &__text {
         font-size: $text-fs;
         display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        max-width: 1200px;
+        width: 100%;
+        flex-wrap: wrap;
     }
 }
 
@@ -18,4 +24,17 @@
 .spaceSpan {
     margin-top: 0.5rem;
     // font-size: 2.5rem;
+}
+
+
+
+.cursor {
+    display: block;
+    width: 2px;
+    height: 1.7rem;
+    background-color: $green-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.2s;
 }
