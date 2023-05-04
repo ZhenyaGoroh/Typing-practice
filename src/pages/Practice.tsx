@@ -4,19 +4,27 @@ import { BiSpaceBar } from "react-icons/bi"
 import { useNavigate } from "react-router-dom"
 import s from "../stylesheet/Practice.module.scss"
 import { useStore } from "../store/store"
+import CurrentResult from "../components/CurrentResult"
 
 function Practice() {
   const navigate = useNavigate()
 
   const text = useStore((state) => state.text)
+  const resultStatusStore = useStore((state) => state.resultStatus)
+  const toggleResultStatus = useStore((state) => state.toggleResultStatus)
+
   let char = 0
 
   const textNode = useRef<HTMLDivElement>(null)
   const cursorRef = useRef<HTMLSpanElement>(null)
 
-  let seconds = 0
-  function increaseSeconds() {
-    seconds += 1
+  let totalSeconds = 0
+  function increaseTotalSeconds() {
+    totalSeconds += 1
+  }
+  let mistakes = 0
+  function increaeMistakes() {
+    mistakes += 1
   }
 
   let isActive = false
@@ -24,6 +32,12 @@ function Practice() {
     isActive = true
   }
   const [line, setLine] = useState<number>(0)
+
+  const [resultStatus, setResultStatus] = useState<boolean>(resultStatusStore)
+  const [wpmProp, setWpmProp] = useState(0)
+  const [secondsProp, setSecondsProp] = useState(0)
+  const [minutesProp, setMinutesProp] = useState(0)
+  const [mistakesProp, setMistakesProp] = useState(0)
 
   function getText(): string[] {
     if (text.length !== 0) {
@@ -105,8 +119,7 @@ function Practice() {
     function handleKeyDown(event: KeyboardEvent) {
       if (!isActive) {
         interval = setInterval(() => {
-          increaseSeconds()
-          console.log(seconds)
+          increaseTotalSeconds()
         }, 1000)
         toggleIsActive()
       }
@@ -118,12 +131,25 @@ function Practice() {
         // TODO: last character
         else {
           clearInterval(interval)
+          setWpmProp(
+            totalSeconds < 60
+              ? Math.round((text.split(" ").length / totalSeconds) * 60)
+              : Math.round(text.split(" ").length / (totalSeconds / 60))
+          )
+          setSecondsProp(totalSeconds % 60)
+          setMinutesProp(Math.floor(totalSeconds / 60))
+          setMistakesProp(mistakes)
+          setResultStatus(true)
+          toggleResultStatus()
         }
         increaceChar()
+      } else {
+        increaeMistakes()
       }
     }
-
-    document.addEventListener("keydown", handleKeyDown)
+    if (!resultStatus) {
+      document.addEventListener("keydown", handleKeyDown)
+    }
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
@@ -135,7 +161,15 @@ function Practice() {
       <div className={s.practice}>
         <div ref={textNode} className={s.practice__text}>
           <span ref={cursorRef} className={s.cursor} />
-          {text.length > 0 &&
+          {resultStatus ? (
+            <CurrentResult
+              wpm={wpmProp}
+              seconds={secondsProp}
+              minutes={minutesProp}
+              mistakes={mistakesProp}
+            />
+          ) : (
+            text.length > 0 &&
             getText()
               [line].split("")
               .map((ch) => {
@@ -148,7 +182,8 @@ function Practice() {
                 ) : (
                   <span key={uuidv4()}>{ch}</span>
                 )
-              })}
+              })
+          )}
         </div>
       </div>
     </div>

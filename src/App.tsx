@@ -3,11 +3,11 @@ import "./App.scss"
 import { Routes, Route } from "react-router-dom"
 import Input from "./pages/Input"
 import Practice from "./pages/Practice"
+import CurrentResult from "./components/CurrentResult"
 
 function App() {
   return (
     <div>
-      {/* <Header /> */}
       <Routes>
         <Route path="/" element={<Input />} />
         <Route path="/practice" element={<Practice />} />
