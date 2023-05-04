@@ -4,6 +4,7 @@ import { BiSpaceBar } from "react-icons/bi"
 import { useNavigate } from "react-router-dom"
 import s from "../stylesheet/Practice.module.scss"
 import { useStore } from "../store/store"
+import { useResults } from "../store/results"
 import CurrentResult from "../components/CurrentResult"
 
 function Practice() {
@@ -12,6 +13,8 @@ function Practice() {
   const text = useStore((state) => state.text)
   const resultStatusStore = useStore((state) => state.resultStatus)
   const toggleResultStatus = useStore((state) => state.toggleResultStatus)
+
+  const { addResult } = useResults()
 
   let char = 0
 
@@ -139,6 +142,17 @@ function Practice() {
           setSecondsProp(totalSeconds % 60)
           setMinutesProp(Math.floor(totalSeconds / 60))
           setMistakesProp(mistakes)
+          addResult({
+            id: uuidv4(),
+            wpm:
+              totalSeconds < 60
+                ? Math.round((text.split(" ").length / totalSeconds) * 60)
+                : Math.round(text.split(" ").length / (totalSeconds / 60)),
+            seconds: totalSeconds % 60,
+            minutes: Math.floor(totalSeconds / 60),
+            mistakes,
+            text,
+          })
           setResultStatus(true)
           toggleResultStatus()
         }

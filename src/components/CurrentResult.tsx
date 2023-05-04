@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { useStore } from "../store/store"
 import s from "../stylesheet/CurrentResult.module.scss"
+import { useResults } from "../store/results"
 
 interface IProps {
   wpm: number
@@ -12,6 +13,9 @@ interface IProps {
 
 function CurrentResult({ wpm, seconds, minutes, mistakes }: IProps) {
   const { toggleResultStatus } = useStore()
+  const { results } = useResults()
+  localStorage.setItem("results", JSON.stringify(results))
+
   return (
     <div className={s.wrapper}>
       <div className={s.result}>
