@@ -13,6 +13,7 @@
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
+    flex-direction: column;
     &__titles {
         display: flex;
         width: 100%;
@@ -26,5 +27,21 @@
         justify-content: center;
         align-items: center;
         width: 25%;
+    }
+}
+
+.link{
+    outline: none;
+    &:hover{
+        display: block;
+        background-color: rgb(25,25,25);
+        width: 100%;
+        height: 100%;
+    }
+    &:focus{
+        display: block;
+        background-color: rgb(25,25,25);
+        width: 100%;
+        height: 100%;
     }
 }

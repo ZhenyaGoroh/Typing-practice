@@ -1,0 +1,21 @@
+@import "./general.scss";
+
+.result {
+    display: flex;
+    width: 600px;
+    align-items: center;
+    justify-content: center;
+    &__result {
+        width: 25%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &_hover {
+        background-color: aqua;
+        display: flex;
+        width: 600px;
+        align-items: center;
+        justify-content: center;
+    }
+}
