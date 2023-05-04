@@ -1,0 +1,30 @@
+@import "./general.scss";
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.table {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    &__titles {
+        display: flex;
+        width: 100%;
+        border-bottom: 3px solid $green-color;
+    }
+}
+
+.titles {
+    &__title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25%;
+    }
+}

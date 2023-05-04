@@ -21,12 +21,12 @@ function CurrentResult({ wpm, seconds, minutes, mistakes }: IProps) {
       <div className={s.result}>
         <div className={s.result__results}>
           <div className={`${s.results__res} ${s.results__wpm}`}>{wpm}</div>
-          <span className={s.vr} />
+          <span className="vr" />
           <div className={`${s.results__res} ${s.results__time}`}>
             {minutes > 9 ? minutes : `0${minutes}`}:
             {seconds > 9 ? seconds : `0${seconds}`}
           </div>
-          <span className={s.vr} />
+          <span className="vr" />
           <div className={`${s.results__res} ${s.results__mistakes}`}>
             {mistakes}
           </div>
