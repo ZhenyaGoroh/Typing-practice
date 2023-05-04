@@ -1,14 +1,18 @@
 @import "./general.scss";
 
 .wrapper {
-    width: 100vw;
-    height: 100vh;
+    max-width: 100vw;
+    width: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 1rem;
+    // overflow: hidden;
 }
 .table {
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,6 +22,24 @@
         display: flex;
         width: 100%;
         border-bottom: 3px solid $green-color;
+    }
+    &__link {
+        border: 1px solid $green-color;
+        padding: 0.5rem 2rem;
+        font-size: 1.2rem;
+        margin-top: 2rem;
+        border-radius: 4px;
+        color: $green-color;
+        transition: all $transition;
+        &:hover {
+            border-color: $green-color;
+            scale: 1.2;
+        }
+        &:focus {
+            border-color: $green-color;
+            scale: 1.2;
+            outline: none;
+        }
     }
 }
 
@@ -30,17 +52,17 @@
     }
 }
 
-.link{
+.link {
     outline: none;
-    &:hover{
+    &:hover {
         display: block;
-        background-color: rgb(25,25,25);
+        background-color: rgb(25, 25, 25);
         width: 100%;
         height: 100%;
     }
-    &:focus{
+    &:focus {
         display: block;
-        background-color: rgb(25,25,25);
+        background-color: rgb(25, 25, 25);
         width: 100%;
         height: 100%;
     }

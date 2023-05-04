@@ -12,7 +12,7 @@ interface IProps {
 }
 
 function CurrentResult({ wpm, seconds, minutes, mistakes }: IProps) {
-  const { toggleResultStatus } = useStore()
+  const { setText, toggleResultStatus } = useStore()
   const { results } = useResults()
   localStorage.setItem("results", JSON.stringify(results))
 
@@ -35,14 +35,20 @@ function CurrentResult({ wpm, seconds, minutes, mistakes }: IProps) {
           <Link
             to="/"
             className={s.links__link}
-            onClick={() => toggleResultStatus()}
+            onClick={() => {
+              toggleResultStatus()
+              setText("")
+            }}
           >
             Home
           </Link>
           <Link
             to="/results"
             className={s.links__link}
-            onClick={() => toggleResultStatus()}
+            onClick={() => {
+              toggleResultStatus()
+              setText("")
+            }}
           >
             Results
           </Link>

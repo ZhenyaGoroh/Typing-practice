@@ -53,6 +53,9 @@ function Results() {
             )
           })}
         </div>
+        <Link to="/" className={s.table__link}>
+          Home
+        </Link>
       </div>
     </div>
   )

@@ -1,7 +1,7 @@
 @import "./stylesheet/general.scss";
 @import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;700&display=swap");
 
-*{
+* {
     box-sizing: border-box;
 }
 
@@ -10,4 +10,11 @@ body {
     font-family: "Source Code Pro", monospace;
     background-color: $base-color;
     color: $text-color;
+}
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $green-color;
 }

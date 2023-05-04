@@ -21,6 +21,9 @@ function Practice() {
   const textNode = useRef<HTMLDivElement>(null)
   const cursorRef = useRef<HTMLSpanElement>(null)
 
+  const [totalSecondsState, setTotalSecondsState] = useState(0)
+  const [mistakesState, setMistakesState] = useState(0)
+
   let totalSeconds = 0
   function increaseTotalSeconds() {
     totalSeconds += 1
@@ -35,6 +38,7 @@ function Practice() {
     isActive = true
   }
   const [line, setLine] = useState<number>(0)
+  const [prevLength, setPrevLength] = useState(0)
 
   const [resultStatus, setResultStatus] = useState<boolean>(resultStatusStore)
   const [wpmProp, setWpmProp] = useState(0)
@@ -68,9 +72,11 @@ function Practice() {
 
   function increaceChar(): void {
     char += 1
-    if (char === getText()[line].length) {
+    if (char === getText()[line].length && line < getText().length - 1) {
       setLine((prevLine) => {
-        char = 10
+        setPrevLength(prevLength + getText()[line].length + 1)
+        setTotalSecondsState(totalSecondsState + totalSeconds + 1)
+        setMistakesState(mistakesState + mistakes)
         return prevLine + 1
       })
     }
@@ -128,31 +134,63 @@ function Practice() {
       }
       if (event.key === getText()[line][char]) {
         textNode.current?.children[char + 1].classList.add(`${s.correct}`)
-        if (char + 1 !== text.length) {
+        if (prevLength + char + 1 < text.length) {
           pushCursor()
-        }
-        // TODO: last character
-        else {
+          console.log(mistakes)
+          console.log(mistakesState)
+        } else {
           clearInterval(interval)
-          setWpmProp(
-            totalSeconds < 60
-              ? Math.round((text.split(" ").length / totalSeconds) * 60)
-              : Math.round(text.split(" ").length / (totalSeconds / 60))
-          )
-          setSecondsProp(totalSeconds % 60)
-          setMinutesProp(Math.floor(totalSeconds / 60))
-          setMistakesProp(mistakes)
-          addResult({
-            id: uuidv4(),
-            wpm:
+          if (line > 0) {
+            setTotalSecondsState(totalSecondsState + totalSeconds)
+            setMistakesState(mistakesState + mistakes)
+          }
+          if (line > 0) {
+            setWpmProp(
+              totalSecondsState < 60
+                ? Math.round((text.split(" ").length / totalSecondsState) * 60)
+                : Math.round(text.split(" ").length / (totalSecondsState / 60))
+            )
+          } else {
+            setWpmProp(
               totalSeconds < 60
                 ? Math.round((text.split(" ").length / totalSeconds) * 60)
-                : Math.round(text.split(" ").length / (totalSeconds / 60)),
-            seconds: totalSeconds % 60,
-            minutes: Math.floor(totalSeconds / 60),
-            mistakes,
-            text,
-          })
+                : Math.round(text.split(" ").length / (totalSeconds / 60))
+            )
+          }
+          setSecondsProp(line > 0 ? totalSecondsState % 60 : totalSeconds % 60)
+          setMinutesProp(
+            Math.floor(line > 0 ? totalSecondsState / 60 : totalSeconds / 60)
+          )
+          setMistakesProp(line > 0 ? mistakesState + mistakes : mistakes)
+          if (line > 0) {
+            addResult({
+              id: uuidv4(),
+              wpm:
+                totalSecondsState < 60
+                  ? Math.round(
+                      (text.split(" ").length / totalSecondsState) * 60
+                    )
+                  : Math.round(
+                      text.split(" ").length / (totalSecondsState / 60)
+                    ),
+              seconds: totalSecondsState % 60,
+              minutes: Math.floor(totalSecondsState / 60),
+              mistakes: mistakesState + mistakes,
+              text,
+            })
+          } else {
+            addResult({
+              id: uuidv4(),
+              wpm:
+                totalSeconds < 60
+                  ? Math.round((text.split(" ").length / totalSeconds) * 60)
+                  : Math.round(text.split(" ").length / (totalSeconds / 60)),
+              seconds: totalSeconds % 60,
+              minutes: Math.floor(totalSeconds / 60),
+              mistakes,
+              text,
+            })
+          }
           setResultStatus(true)
           toggleResultStatus()
         }
