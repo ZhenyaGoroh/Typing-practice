@@ -39,7 +39,7 @@ function Results() {
               <Link
                 className={s.link}
                 key={uuidv4()}
-                to={`/results/${result.text.substring(0, 7)}...`}
+                to={`/results/${result.text.split(" ")[0]}…`}
                 state={resultState}
               >
                 <Result

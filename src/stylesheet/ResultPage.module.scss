@@ -1,1 +1,77 @@
-@import "./general.scss"
+@import "./general.scss";
+
+.wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+}
+
+.result {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    width: 1200px;
+    &__results {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+    }
+    &__textarea {
+        text-align: center;
+        resize: none;
+        outline: none;
+        background-color: inherit;
+        color: $text-color;
+        overflow-y: scroll;
+        border: none;
+        width: 100%;
+        font-size: $text-fs;
+        height: 20vh;
+    }
+}
+.results {
+    &__res {
+        position: relative;
+        box-sizing: content-box;
+        padding: 1rem 0;
+    }
+    &__wpm {
+        &::after {
+            content: "wpm";
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            bottom: 0;
+            font-size: 1rem;
+        }
+    }
+    &__time {
+        &::after {
+            content: "time";
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            bottom: 0;
+            font-size: 1rem;
+        }
+    }
+    &__mistakes {
+        &::after {
+            content: "mistakes";
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            bottom: 0;
+            font-size: 1rem;
+        }
+    }
+}

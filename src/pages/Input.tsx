@@ -28,10 +28,16 @@ function Input() {
           onChange={(el) => setText(el.target.value)}
           value={text}
         />
-        {text.length > 0 && (
-          <Link to="/practice" className={s.input__link}>
+        {text.length >= 20 ? (
+          <Link
+            onClick={() => setText(text.trim())}
+            to="/practice"
+            className={s.input__link}
+          >
             Start typing
           </Link>
+        ) : (
+          <span>Write {20 - text.length} more characters</span>
         )}
       </div>
     </div>

@@ -136,8 +136,6 @@ function Practice() {
         textNode.current?.children[char + 1].classList.add(`${s.correct}`)
         if (prevLength + char + 1 < text.length) {
           pushCursor()
-          console.log(mistakes)
-          console.log(mistakesState)
         } else {
           clearInterval(interval)
           if (line > 0) {
