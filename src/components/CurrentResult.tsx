@@ -33,7 +33,7 @@ function CurrentResult({ wpm, seconds, minutes, mistakes }: IProps) {
         </div>
         <div className={s.result__links}>
           <Link
-            to="/"
+            to="Typing-practice/"
             className={s.links__link}
             onClick={() => {
               toggleResultStatus()
@@ -43,7 +43,7 @@ function CurrentResult({ wpm, seconds, minutes, mistakes }: IProps) {
             Home
           </Link>
           <Link
-            to="/results"
+            to="Typing-practice/results"
             className={s.links__link}
             onClick={() => {
               toggleResultStatus()

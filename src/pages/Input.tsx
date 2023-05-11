@@ -31,7 +31,7 @@ function Input() {
         {text.length >= 20 ? (
           <Link
             onClick={() => setText(text.trim())}
-            to="/practice"
+            to="Typing-practice/practice"
             className={s.input__link}
           >
             Start typing
