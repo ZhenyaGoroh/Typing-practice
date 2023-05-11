@@ -13,7 +13,6 @@ function App() {
         <Route path="/" element={<Input />} />
         <Route path="/practice" element={<Practice />} />
         <Route path="/results" element={<Results />} />
-        {/* <Route path="/" element={<Results />} /> */}
         <Route path="/results/*" element={<ResultPage />} />
       </Routes>
     </div>
