@@ -15,6 +15,7 @@ interface State {
 
 interface Action {
   addResult: (newResult: IResult) => void
+  removeResult: (resultId: string) => void
 }
 
 export const useResults = create<State & Action>((set) => ({
@@ -24,4 +25,8 @@ export const useResults = create<State & Action>((set) => ({
   })(),
   addResult: (newResult: IResult) =>
     set((state) => ({ results: [...state.results, newResult] })),
+  removeResult: (resultId: string) =>
+    set((state) => ({
+      results: state.results.filter((result) => result.id !== resultId),
+    })),
 }))

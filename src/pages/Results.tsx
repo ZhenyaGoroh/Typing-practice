@@ -23,12 +23,14 @@ function Results() {
         <div className={s.table__results}>
           {results.map((result, index) => {
             const resultState: {
+              id: string
               wpm: number
               seconds: number
               minutes: number
               mistakes: number
               text: string
             } = {
+              id: result.id,
               wpm: result.wpm,
               seconds: result.seconds,
               minutes: result.minutes,

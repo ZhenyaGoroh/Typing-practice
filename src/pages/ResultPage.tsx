@@ -1,12 +1,16 @@
 import React, { useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import ReactTextareaAutosize from "react-textarea-autosize"
 import s from "../stylesheet/ResultPage.module.scss"
 import CurrentResult from "../components/CurrentResult"
+import { useStore } from "../store/store"
+import { useResults } from "../store/results"
 
 function ResultPage() {
   const location = useLocation()
-  const { wpm, seconds, minutes, mistakes, text } = location.state
+  const { id, wpm, seconds, minutes, mistakes, text } = location.state
+  const { setText } = useStore()
+  const { results, removeResult } = useResults()
 
   return (
     <div className={s.wrapper}>
@@ -28,6 +32,30 @@ function ResultPage() {
           readOnly
           value={text}
         />
+        <div className={s.result__btns}>
+          <Link
+            onClick={() => {
+              setText(text)
+              removeResult(id)
+              localStorage.setItem("results", JSON.stringify(results))
+            }}
+            className={s.btns__btn}
+            to="/practice"
+          >
+            Type again
+          </Link>
+          <Link
+            to="/results"
+            onClick={() => {
+              removeResult(id)
+              localStorage.setItem("results", JSON.stringify(results))
+            }}
+            className={`${s.btns__btn} ${s.btns__btn_remove}`}
+            type="button"
+          >
+            Remove result
+          </Link>
+        </div>
       </div>
     </div>
   )
