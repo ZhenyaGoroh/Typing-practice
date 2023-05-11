@@ -114,7 +114,7 @@ function Practice() {
     let interval: number
     getText()
     if (text.length < 1) {
-      navigate("Typing-practice/")
+      navigate("/Typing-practice")
     }
     if (
       textNode.current &&

@@ -62,7 +62,7 @@ function Results() {
           Looks like you haven&apos;t typed anything yet.
         </div>
       )}
-      <Link to="Typing-practice/" className={s.table__link}>
+      <Link to="/Typing-practice" className={s.table__link}>
         Home
       </Link>
     </div>

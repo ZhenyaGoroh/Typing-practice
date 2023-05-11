@@ -40,12 +40,12 @@ function ResultPage() {
               localStorage.setItem("results", JSON.stringify(results))
             }}
             className={s.btns__btn}
-            to="Typing-practice/practice"
+            to="/practice"
           >
             Type again
           </Link>
           <Link
-            to="Typing-practice/results"
+            to="/results"
             onClick={() => {
               removeResult(id)
               localStorage.setItem("results", JSON.stringify(results))
