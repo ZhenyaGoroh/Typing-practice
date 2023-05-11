@@ -1,8 +1,7 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Link, useLocation } from "react-router-dom"
 import ReactTextareaAutosize from "react-textarea-autosize"
 import s from "../stylesheet/ResultPage.module.scss"
-import CurrentResult from "../components/CurrentResult"
 import { useStore } from "../store/store"
 import { useResults } from "../store/results"
 
