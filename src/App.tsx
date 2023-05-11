@@ -11,9 +11,9 @@ function App() {
     <div>
       <Routes>
         <Route path="Typing-practice/" element={<Input />} />
-        <Route path="/practice" element={<Practice />} />
-        <Route path="/results" element={<Results />} />
-        <Route path="/results/*" element={<ResultPage />} />
+        <Route path="Typing-practice/practice" element={<Practice />} />
+        <Route path="Typing-practice/results" element={<Results />} />
+        <Route path="Typing-practice/results/*" element={<ResultPage />} />
       </Routes>
     </div>
   )
